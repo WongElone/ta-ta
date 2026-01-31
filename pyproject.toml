@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "cython>=3.0", "numpy>=1.24"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ta-ta"
+version = "0.1.0"
+description = "Technical analysis Cython extensions for TraderAlchemy"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.cibuildwheel]
+# Build CPython 3.12 only
+build = "cp312-*"
+
+# Skip musllinux and PyPy
+skip = ["*-musllinux*", "pp*"]
+
+# Use binary numpy during build
+environment = { PIP_ONLY_BINARY = "numpy" }
+
+[tool.cibuildwheel.linux]
+archs = ["x86_64"]
+
+[tool.cibuildwheel.macos]
+archs = ["arm64"]
+
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]
